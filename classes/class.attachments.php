@@ -321,7 +321,7 @@ if ( ! class_exists( 'Attachments' ) ) :
          * @since 3.0.6
          */
         function total() {
-            return count( $this->attachments );
+            return is_array( $this->attachments ) ? count( $this->attachments ) : 0;
         }
 
 
@@ -345,7 +345,7 @@ if ( ! class_exists( 'Attachments' ) ) :
         function get() {
             $this->attachments_ref++;
 
-            if ( ! count( $this->attachments ) || $this->attachments_ref >= count( $this->attachments ) ) {
+            if ( !is_array( $this->attachments ) || ! count( $this->attachments ) || $this->attachments_ref >= count( $this->attachments ) ) {
                 return false;
             }
 
@@ -746,7 +746,7 @@ if ( ! class_exists( 'Attachments' ) ) :
                         button       = '<?php echo __( esc_attr( $instance->modal_text ) ); ?>',
                         router       = '<?php echo __( esc_attr( $instance->router ) ); ?>',
                         limit        = <?php echo intval( $instance->limit ); ?>,
-                        existing     = <?php echo ( isset( $instance->attachments ) && ! empty( $instance->attachments ) ) ? count( $instance->attachments ): 0; ?>,
+                        existing     = <?php echo ( ! empty( $instance->attachments ) && is_array( $instance->attachments ) ) ? count( $instance->attachments ): 0; ?>,
                         attachmentsframe,
                         editframe;
 
@@ -1671,7 +1671,11 @@ if ( ! class_exists( 'Attachments' ) ) :
                 }
             }
 
-            // tack on the post ID for each attachment
+            // Protection against Fatal error: Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given.
+	        if ( empty( $attachments ) || ! is_array( $attachments ) ) {
+		        $attachments = array();
+	        }
+			// tack on the post ID for each attachment
             for ( $i = 0; $i < count( $attachments ); $i++ ) {
                 $attachments[ $i ]->post_id = $post_id;
             }
