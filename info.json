@@ -1,0 +1,30 @@
+{
+  "Plugin Name": "Attachments",
+  "Plugin URI" : "http://clearsite.nl",
+  "Description": "Attachments gives the ability to append any number of Media Library items to Pages, Posts, and Custom Post Types",
+  "Author"     : "Remon Pel",
+  "Requires"   : "5.9",
+  "Tested"     : "6.3.2",
+  "Author URI" : "http://acato.nl/",
+  "Tags"       : [],
+  "Compat": {
+    "3": {
+      "3.5.10": 0
+    },
+    "4": {
+      "3.5.10": 0
+    },
+    "5": {
+      "3.5.10": 0
+    },
+    "5.9": {
+      "3.5.10": 100
+    },
+    "6": {
+      "3.5.10": 100
+    },
+    "6.3.2": {
+      "3.5.10": 100
+    }
+  }
+}
