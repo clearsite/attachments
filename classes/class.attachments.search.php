@@ -60,6 +60,10 @@ class AttachmentsSearch extends Attachments {
             $params['filetype']     = array( $params['filetype'] ); // we always want an array
         }
 
+		// Protection against Fatal error: Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given.
+	    if ( empty( $params['fields'] ) || ! is_array( $params['fields'] ) ) {
+		    $params['fields'] = array();
+	    }
         // since we have an array for our fields, we need to loop through and sanitize
         for ( $i = 0; $i < count( $params['fields'] ); $i++ ) {
             $params['fields'][ $i ] = sanitize_text_field( $params['fields'][ $i ] );
@@ -91,7 +95,7 @@ class AttachmentsSearch extends Attachments {
         // do some parsing on our end to validate the returned results
 
         $possible_posts         = new WP_Query( $args );
-        $potential_attachments  = false;  // stores valid attachments as restrictions are added
+        $potential_attachments  = array();  // stores valid attachments as restrictions are added
 
         if ( $possible_posts->found_posts ) {
             // we have results from the reliminary search, we need to quantify them
