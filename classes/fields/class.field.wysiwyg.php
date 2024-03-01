@@ -135,7 +135,7 @@ class Attachments_Field_WYSIWYG extends Attachments_Field {
      * @return string        The formatted value
      */
     function format_value_for_input( $value, $field = null  ) {
-        return wp_richedit_pre( $value );
+        return format_for_editor( $value );
     }
 
 
