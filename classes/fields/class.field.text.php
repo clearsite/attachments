@@ -41,7 +41,7 @@ class Attachments_Field_Text extends Attachments_Field {
      * @return string        The formatted value
      */
     function format_value_for_input( $value, $field = null  ) {
-        return htmlspecialchars( $value, ENT_QUOTES );
+        return htmlspecialchars( "$value", ENT_QUOTES );
     }
 
 
